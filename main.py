@@ -1,9 +1,3 @@
-# coding=UTF-8
-'''
-Created on 2016??11??20??
-
-@author: ZWT
-'''
 
 import time
 
@@ -30,7 +24,7 @@ import similarity_indicators.Katz
 import similarity_indicators.LP3
 import similarity_indicators.RWR
 from NetworkLoader import NetworkLoader
-from similarity_indicators.NMF_LC_Optimizer import nmflc_optimizer
+from similarity_indicators.NMF_LP_Optimizer import nmflc_optimizer
 
 startTime = time.process_time()
 
@@ -122,7 +116,7 @@ for network in networks:
     netFile = r'Data\\' + network + '.txt'
     # print("******************{}****************".format(network))
     if network in ['leadership', 'revolution', 'crime', 'opsahl-ucforum', 'membership', 'dt'] or network.find('bipartite_') != -1:
-        Graph, left_num, right_num = Initialize2022.load_bipartiteNetwork(netFile)
+        Graph, left_num, right_num = initialize.load_bipartiteNetwork(netFile)
     elif network in ['cornell', 'cora', 'cornell', 'citeseer', 'polblog', 'terrorist', 'texas', 'washington', 'wisconsin']  or network.find('attribute_') != -1:
         loader = NetworkLoader(network)
         adjajency_matrix, content_matrix, node_community_label_list, edge_list = loader.network_parser('Data/input/' + network)
@@ -144,7 +138,7 @@ for network in networks:
         feat_matrix_np = feat.numpy()
         content = np.asarray(feat_matrix_np)
     else:
-        Graph = Initialize2022.load_Network(netFile)
+        Graph = initialize.load_Network(netFile)
 
     L = len(Graph.edges)
 
