@@ -9,9 +9,9 @@ from dgl.data import TexasDataset
 from dgl.data import WisconsinDataset
 from torch.linalg import LinAlgError
 
-import Evaluation_Indicators.AUC
-import Evaluation_Indicators.PR
-import Initialize2022
+import evaluation_indicators.AUC
+import evaluation_indicators.PR
+import initialize
 import similarity_indicators.ACT
 import similarity_indicators.Jaccard
 import similarity_indicators.AA
@@ -113,7 +113,7 @@ for network in networks:
     aucResults = pd.DataFrame(columns=cls)
     preResults = pd.DataFrame(columns=cls)
 
-    netFile = r'Data\\' + network + '.txt'
+    netFile = r'data\\' + network + '.txt'
     # print("******************{}****************".format(network))
     if network in ['leadership', 'revolution', 'crime', 'opsahl-ucforum', 'membership', 'dt'] or network.find('bipartite_') != -1:
         Graph, left_num, right_num = initialize.load_bipartiteNetwork(netFile)
@@ -142,7 +142,7 @@ for network in networks:
 
     L = len(Graph.edges)
 
-    MatrixAdjacency_TrainSets, MatrixAdjacency_TestSets = Initialize2022.train_test_split(Graph, 10)
+    MatrixAdjacency_TrainSets, MatrixAdjacency_TestSets = initialize.train_test_split(Graph, 10)
 
     for fold in range(len(MatrixAdjacency_TrainSets)):
 
